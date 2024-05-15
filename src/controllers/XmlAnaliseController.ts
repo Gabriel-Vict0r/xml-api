@@ -6,16 +6,10 @@ import { XmlAnaliseProcess } from "../dataProcess/XmlConvertProcess";
 export class XmlAnaliseController {
     handle(req: Request, res: Response) {
         const files = req.files
-        const filesArr = files as unknown as Array<any>
+        const filesArr = files as unknown as Array<Express.Multer.File>
 
         const service = new XmlAnaliseProcess();
         const result = service.execute(filesArr);
-        //const xmlString = files.xml as string
-        //console.log(req)
-        // const jsonResult = convert.xml2json(xmlString, {
-        //     compact: true,
-        //     spaces: 2
-        // })
         return res.status(200).json(result)
     }
 }

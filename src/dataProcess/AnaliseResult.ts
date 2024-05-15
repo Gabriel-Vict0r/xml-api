@@ -1,9 +1,17 @@
 
-
+interface INote {
+    [key: string]: string;
+}
 export class AnaliseResult {
-    result: number;
+    total: number;
+    canceled: INote;
+    withoutProt: INote;
+    wrongDate: INote;
 
-    constructor(result) {
-        this.result = result
+    constructor(total, canceled, without, wrongDate) {
+        this.total = total
+        this.canceled = canceled
+        this.withoutProt = without
+        this.wrongDate = wrongDate
     }
 }
