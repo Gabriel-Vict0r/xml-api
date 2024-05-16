@@ -7,7 +7,7 @@ export class GenerateCommandController {
         const filesArr = files as unknown as Array<Express.Multer.File>
 
         const service = new GenerateCommandProcess();
-        const result = service.execute()
+        const result = service.execute(filesArr)
 
         return res.status(200).json(result)
     }

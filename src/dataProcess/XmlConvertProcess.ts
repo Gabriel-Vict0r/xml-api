@@ -1,20 +1,13 @@
 import fs from 'fs'
 import convert from 'xml-js'
 import { AnaliseResult } from './AnaliseResult'
+import { TransformToObjProcess } from './TransformToObjProcess';
 
 interface IObjNote {
     noteNumber: string;
     value: number;
 }
 export class XmlAnaliseProcess {
-    transformXml(xmlString: string) {
-        const jsonResult = convert.xml2json(xmlString, {
-            compact: true,
-            spaces: 2
-        })
-        //console.log('objeto', JSON.parse(jsonResult))
-        return JSON.parse(jsonResult)
-    }
     extractInfNote(arrNotes) {
         return arrNotes.map((element) => {
             let obj: IObjNote = { noteNumber: '', value: 0 }
@@ -62,13 +55,9 @@ export class XmlAnaliseProcess {
         return notesWrongDate;
     }
     execute(arrFiles) {
-        let arrXmls = [];
-        arrFiles.map((element) => {
-            let data = fs.readFileSync(element.path, 'utf-8')
-            const xmlObj = this.transformXml(data)
-            //console.log(xmlObj)
-            arrXmls.push(xmlObj)
-        })
+        const process = new TransformToObjProcess();
+        const arrXmls = process.readTransformFiles(arrFiles)
+        console.log(arrXmls)
         const total = this.calcTotal(arrXmls)
         const cancelNotes = this.cancelNotes(arrXmls)
         const withoutProt = this.xmlWithoutProtocol(arrXmls)
