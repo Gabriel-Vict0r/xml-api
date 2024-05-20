@@ -2,6 +2,7 @@ import fs from 'fs'
 import convert from 'xml-js'
 import { AnaliseResult } from './AnaliseResult'
 import { TransformToObjProcess } from './TransformToObjProcess';
+import { deleteFiles } from '../utils/deleteTmpFiles';
 
 interface IObjNote {
     noteNumber: string;
@@ -57,12 +58,12 @@ export class XmlAnaliseProcess {
     execute(arrFiles) {
         const process = new TransformToObjProcess();
         const arrXmls = process.readTransformFiles(arrFiles)
-        console.log(arrXmls)
         const total = this.calcTotal(arrXmls)
         const cancelNotes = this.cancelNotes(arrXmls)
         const withoutProt = this.xmlWithoutProtocol(arrXmls)
         const wrongDate = this.xmlWrongDate(arrXmls)
         const obj = new AnaliseResult(total, cancelNotes, withoutProt, wrongDate)
+        deleteFiles();
         return obj
     }
 }

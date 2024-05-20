@@ -1,3 +1,4 @@
+import { deleteFiles } from "../utils/deleteTmpFiles";
 import { TransformToObjProcess } from "./TransformToObjProcess";
 
 
@@ -24,6 +25,7 @@ export class GenerateCommandProcess {
         const service = new TransformToObjProcess();
         const arrXmls = service.readTransformFiles(filesArr);
         const comand = this.mountCommand(arrXmls);
+
         return comand
     }
 }

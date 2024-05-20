@@ -1,5 +1,6 @@
 import express from 'express'
 import { routes } from './routes'
+import { deleteFiles } from './utils/deleteTmpFiles'
 
 const app = express()
 

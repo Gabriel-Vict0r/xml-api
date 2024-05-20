@@ -10,6 +10,6 @@ export class ReportController {
 
         const service = new GenerateReportProcess();
         const result = service.execute(filesArr)
-        return result;
+        return res.status(200).json(result)
     }
 }
